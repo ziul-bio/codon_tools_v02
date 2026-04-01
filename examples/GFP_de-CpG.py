@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-from codon_tools import SequenceAnalyzer, CodonOptimizer, StopAndCpGScorer
 
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio.Alphabet import IUPAC
+from codon_tools import SequenceAnalyzer, CodonOptimizer, StopAndCpGScorer
 
 
 def de_CpG(seq):
@@ -31,6 +30,6 @@ def de_CpG(seq):
 # when run as its own script, 
 if __name__ == "__main__":
     # read in GFP wt sequence    
-    seq = SeqIO.parse(open("fasta/GFP_wt.fasta", "rU"), "fasta").__next__().seq
+    seq = SeqIO.parse(open("examples/fasta/GFP_wt.fasta"), "fasta").__next__().seq
     # run analysis    
     de_CpG(seq)

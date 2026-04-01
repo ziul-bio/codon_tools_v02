@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import random, sys, argparse
+import os, sys, random, argparse
 
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
@@ -96,7 +96,7 @@ def characterize_sequences(records, outfile):
         outfile.write("-----------------------------------------------\n")
 
 
-def generate_constructs(to_optimize, target, max_wait_count = 10000):
+def generate_constructs(to_optimize, target, max_wait_count = 10000, output_dir="./examples/recoded/"):
     target_seq = target.seq
     seq = to_optimize.seq
     records = [to_optimize]
@@ -151,10 +151,12 @@ def generate_constructs(to_optimize, target, max_wait_count = 10000):
     fasta_fname = "%s_recoded_to_%s.fasta" % (to_optimize.id, target.id)
     descr_fname = "%s_recoded_to_%s_descr.txt" % (to_optimize.id, target.id)
 
-    with open(descr_fname, 'w') as outfile:
+    # saving the sequences and their descriptions
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, descr_fname), 'w') as outfile:
         characterize_sequences([target] + records, outfile)
     
-    with open(fasta_fname, 'w') as outfile:
+    with open(os.path.join(output_dir, fasta_fname), 'w') as outfile:
         SeqIO.write(records, outfile, "fasta")
    
    
@@ -176,16 +178,20 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--seed', default=123, type=int,
                         metavar='n',
                         help='random seed, default = 123')
+    
+    parser.add_argument('-o', '--output', default='./examples/recoded/', type=str,
+                        metavar='path',
+                        help='output directory for save recoded sequences')
 
 
     args = parser.parse_args()
 
     random.seed(args.seed)
     # read in the sequence defining target codon frequencies    
-    target = SeqIO.parse(open(args.reference, "rU"), "fasta").__next__()
+    target = SeqIO.parse(open(args.reference), "fasta").__next__()
 
     # read in the sequence to optimize
-    to_optimize = SeqIO.parse(open(args.to_recode, "rU"), "fasta").__next__()
+    to_optimize = SeqIO.parse(open(args.to_recode), "fasta").__next__()
 
     # do the job  
-    generate_constructs(to_optimize, target, args.max_wait)
+    generate_constructs(to_optimize, target, args.max_wait, args.output)

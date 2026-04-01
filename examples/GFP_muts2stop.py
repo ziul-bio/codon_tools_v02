@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-from codon_tools import CodonAnalyzer, reverse_genetic_code
 
 from Bio import SeqIO
 from Bio.Seq import Seq
+from codon_tools import CodonAnalyzer, reverse_genetic_code
     
 def analyze_m2stop(seq):
-    print("""Each line contains one codon of wt GFP, the corresponding amino acid,
-and the number of single-point mutations that lead to a stop codon.
-For codons for which the count exceeds 0, all possible alternative codons
-and their counts are shown as well.""")
+    print("""
+        Each line contains one codon of wt GFP, the corresponding amino acid,
+        and the number of single-point mutations that lead to a stop codon.
+        For codons for which the count exceeds 0, all possible alternative codons
+        and their counts are shown as well.""")
 
     ca = CodonAnalyzer()
 
@@ -27,6 +28,6 @@ and their counts are shown as well.""")
 # when run as its own script, 
 if __name__ == "__main__":
     # read in GFP wt sequence    
-    seq = SeqIO.parse(open("fasta/GFP_wt.fasta", "rU"), "fasta").__next__().seq
+    seq = SeqIO.parse(open("examples/fasta/GFP_wt.fasta"), "fasta").__next__().seq
     # run analysis
     analyze_m2stop(seq)

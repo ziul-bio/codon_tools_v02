@@ -82,7 +82,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # read in the sequence     
-    record = SeqIO.parse(open(args.filename, "rU"), "fasta").__next__()
+    record = SeqIO.parse(open(args.filename), "fasta").__next__()
     # run analysis    
     records = deoptimize(record.seq, record.description,
                          args.Fop_start, args.Fop_step, args.Fop_stop,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+from Bio import SeqIO
 from codon_tools import SequenceAnalyzer, CodonOptimizer, CodonFreqScorer, StopAndCpGScorer
 
-from Bio import SeqIO
 
 def optimize_codon_freqs(seq, target_seq):
     scorer = CodonFreqScorer()
@@ -37,10 +37,10 @@ def optimize_codon_freqs(seq, target_seq):
 # when run as its own script, 
 if __name__ == "__main__":
     # read in the sequence defining target codon frequencies    
-    target_seq = SeqIO.parse(open("fasta/Mahoney_ORF.fasta", "rU"), "fasta").__next__().seq
+    target_seq = SeqIO.parse(open("examples/fasta/Mahoney_ORF.fasta"), "fasta").__next__().seq
 
     # read in the sequence to optimize
-    seq = SeqIO.parse(open("fasta/GFP_wt.fasta", "rU"), "fasta").__next__().seq
+    seq = SeqIO.parse(open("examples/fasta/GFP_wt.fasta"), "fasta").__next__().seq
 
     # do the job  
     optimize_codon_freqs(seq, target_seq)

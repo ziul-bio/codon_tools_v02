@@ -1,5 +1,4 @@
 from Bio.Seq import Seq
-from Bio.Alphabet import generic_dna
 
 
 class CodonAnalyzer:
@@ -21,21 +20,21 @@ class CodonAnalyzer:
             if codon[0] != c:
                 codon_mut = c + codon[1:3]
 #                print(codon, "->", codon_mut)
-                if Seq(codon_mut, generic_dna).translate() == '*':
+                if Seq(codon_mut).translate() == '*':
                     stop_count += 1
 #                    print("  mutation to stop")
 
             if codon[1] != c:
                 codon_mut = codon[0] + c + codon[2]
 #                print(codon, "->", codon_mut)
-                if Seq(codon_mut, generic_dna).translate() == '*':
+                if Seq(codon_mut).translate() == '*':
                     stop_count += 1
 #                    print("  mutation to stop")
 
             if codon[2] != c:
                 codon_mut = codon[0:2] + c
 #                print(codon, "->", codon_mut)
-                if Seq(codon_mut, generic_dna).translate() == '*':
+                if Seq(codon_mut).translate() == '*':
                     stop_count += 1
 #                    print("  mutation to stop")
 

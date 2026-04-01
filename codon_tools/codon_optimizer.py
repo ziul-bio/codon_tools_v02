@@ -1,7 +1,6 @@
 import random
 
 from Bio.Seq import Seq
-from Bio.Alphabet import IUPAC
 
 from .lookup_tables import reverse_genetic_code
 
@@ -14,13 +13,14 @@ class CodonOptimizer:
     def random_reverse_translate(self, protein):
         # choose random codon for each amino acid
         dna = ''.join([random.choice(reverse_genetic_code[aa]) for aa in protein.upper() ])
-        return Seq(dna, IUPAC.unambiguous_dna)
+        #return Seq(dna, IUPAC.unambiguous_dna)
+        return Seq(dna)
 
     def change_random_codon(self, seq, start_window, end_window):
         """``seq``: The nucleotide sequence in which a codon should be changed
-``start_window``: number of codons to omit at beginning of sequence
-``end_window``: number of codons to omit at end of sequence
-"""
+        ``start_window``: number of codons to omit at beginning of sequence
+        ``end_window``: number of codons to omit at end of sequence
+        """
         #print len(seq), str(seq)
         assert len( seq ) % 3 == 0
     
@@ -38,11 +38,11 @@ class CodonOptimizer:
     def hillclimb(self, seq, start_window = 0, end_window = 0, target_score = None, tolerance = .01, max_wait_count = 1000, maximize = True, verbosity = 1 ):
         '''The hillclimb will stop if the obtained score is within ``tolerance`` of ``target_score`` (if given), or if the score has not improved over the last ``max_wait_count`` trials.
         
-Verbosity levels:
-    0: print nothing
-    1: print only when next sequence is found
-    2: print every step
-'''
+        Verbosity levels:
+            0: print nothing
+            1: print only when next sequence is found
+            2: print every step
+        '''
         if maximize:
             coef = 1
         else:
