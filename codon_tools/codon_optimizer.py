@@ -25,7 +25,7 @@ class CodonOptimizer:
         assert len( seq ) % 3 == 0
     
         start = start_window
-        end = len( seq )/3 - end_window - 1
+        end = len( seq )//3 - end_window - 1
         assert start <= end
         aa_index = random.randint(start, end)
 
