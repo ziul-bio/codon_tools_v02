@@ -21,7 +21,5 @@ python examples/recode_to_reference.py examples/fasta/GFP_wt.fasta examples/fast
 ```
 
 # To run recode example on colab
-```bash
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)]
-(https://colab.research.google.com/github/ziul-bio/codon_tools_v02/blob/main/notebooks/recode_sequence.ipynb)
-```
+(https://github.com/ziul-bio/codon_tools_v02/blob/master/notebooks/recode_sequence.ipynb)
